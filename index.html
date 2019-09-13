@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>my-project</title>
+  <script src="//api.bitrix24.com/api/v1/"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="test"></div>
+  <script src="dist/build.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      BX24.init(function () {
+        console.log('Инициализация завершена!', BX24.isAdmin());
+      });
+    });
+  </script>
+</body>
+
+</html>
