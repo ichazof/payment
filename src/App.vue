@@ -6,6 +6,8 @@ div.app(data-app="true")
   div(class="alert alert-primary" role="alert")
     |This is a primary alert—check it out!
   button( type="button" class="btn btn-primary" @click="show") Test
+  button( type="button" class="btn btn-primary" @click="create") Create Entity
+  button( type="button" class="btn btn-primary" @click="get") Get Entity
   table(class="table table-hover")
     thead
       tr
@@ -23,28 +25,8 @@ div.app(data-app="true")
     
 </template>
 
-<script>
-export default {
-  name: "app",
-  data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
-  },
-  methods: {
-    show () {
-      BX24.callMethod('user.get', {ID: 1}, function(res){
-    if(res.data())
-    {
-        var user = res.data()[0];
-        if(!!user)
-            alert('Пользователя №' + user.ID + ' зовут ' + user.NAME);
-    }
-});
-    }
-  },
-};
-</script>
+<script lang="js" src="./script.js"></script>
+
 
 <style lang="scss">
 #app {
