@@ -76,16 +76,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyPlugin ([{
-      from: './*.html'
-    }]),
-    new ZipPlugin({
-      path: '../',
-      pathPrefix: 'dist',
-      filename: 'my_app',
-      // include:['index.html'],
-      extension: 'zip',     
-    }),
     new CleanWebpackPlugin()
   ],
   resolve: {
