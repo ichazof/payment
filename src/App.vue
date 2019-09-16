@@ -6,19 +6,30 @@ div.app(data-app="true")
   div(class="alert alert-primary" role="alert")
     |This is a primary alert—check it out!
   button( type="button" class="btn btn-primary" @click="show") Test
-  button( type="button" class="btn btn-primary" @click="create") Create Entity
-  button( type="button" class="btn btn-primary" @click="get") Get Entity
+  button( type="button" class="btn btn-primary" @click="createNewEntity") Create Entity
+  button( type="button" class="btn btn-primary" @click="addNewProperty") addNewProperty
+  button( type="button" class="btn btn-primary" @click="addNewItem") addNewItem
+  //- button( type="button" class="btn btn-primary" @click="get") Get Entity
+  button( type="button" class="btn btn-primary" @click="getItem") getItem
+  //- button( type="button" class="btn btn-primary" @click="getProp") getProp
+
   table(class="table table-hover")
     thead
       tr
-        th(scope="col") 1
-        th(scope="col") 3
-        th(scope="col") 4
-        th(scope="col") 5
+        th(scope="col") 
+          | id
+        th(scope="col") 
+          | Оператор
+        th(scope="col") Номер заявки
+        th(scope="col") Оплата
+        th(scope="col") Дата оплаты
+        th(scope="col") Сотрудник
     tbody
       tr
         th(scope="row") 22
         td  вввввв  
+        td  вввввв  
+        td  вввввв
         td  вввввв
         td  вввввв
 
