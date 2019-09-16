@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
-
+var ZipPlugin = require('zip-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -73,6 +75,19 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new CopyPlugin ([{
+      from: './*.html'
+    }]),
+    new ZipPlugin({
+      path: '../',
+      pathPrefix: 'dist',
+      filename: 'my_app',
+      // include:['index.html'],
+      extension: 'zip',     
+    }),
+    new CleanWebpackPlugin()
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
@@ -107,6 +122,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
   ])
 }
