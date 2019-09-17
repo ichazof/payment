@@ -1,31 +1,29 @@
+/* eslint-disable no-undef */
 export default {
-  name: "app",
-  data() {
+  name: 'app',
+  data () {
     return {
-      msg: "Welcome to Your Vue.js App"
-    };
+      msg: 'Welcome to Your Vue.js App'
+    }
   },
   methods: {
-    show() {
+    show () {
       BX24.callMethod('user.get', {
         ID: 1
       }, function (res) {
         if (res.data()) {
-          var user = res.data()[0];
-          if (!!user)
-            alert('Пользователя №' + user.ID + ' зовут ' + user.NAME);
+          var user = res.data()[0]
+          if (user) { alert('Пользователя №' + user.ID + ' зовут ' + user.NAME)}
         }
       })
     },
 
-    result(result) {
-      if (result.error())
-        console.error(result.error());
-      else {
-        console.log(result.data());
+    result (result) {
+      if (result.error()) { console.error(result.error())} else {
+        console.log(result.data())
       }
     },
-    createNewEntity() {
+    createNewEntity () {
       BX24.callMethod('entity.add', {
         'ENTITY': 'payment',
         'NAME': 'Payment',
@@ -33,35 +31,33 @@ export default {
           U1: 'W',
           AU: 'R'
         }
-      }, this.result);
-
+      }, this.result)
     },
-    
-    addNewProperty() {
+
+    addNewProperty () {
       BX24.callMethod('entity.item.property.add', {
-          ENTITY: 'payment',
-          PROPERTY: 'id',
-          NAME: 'id',
-          TYPE: 'N'
-        },
-        this.result);
+        ENTITY: 'payment',
+        PROPERTY: 'id',
+        NAME: 'id',
+        TYPE: 'N'
+      },
+      this.result)
       BX24.callMethod('entity.item.property.add', {
-          ENTITY: 'payment',
-          PROPERTY: 'cost',
-          NAME: 'Cost',
-          TYPE: 'S'
-        },
-        this.result);
+        ENTITY: 'payment',
+        PROPERTY: 'cost',
+        NAME: 'Cost',
+        TYPE: 'S'
+      },
+      this.result)
       BX24.callMethod('entity.item.property.add', {
         ENTITY: 'payment',
         PROPERTY: 'date',
         NAME: 'Date',
         TYPE: 'S'
-        },
-        this.result);
-
+      },
+      this.result)
     },
-    addNewItem() {
+    addNewItem () {
       BX24.callMethod('entity.item.add', {
         ENTITY: 'payment',
         NAME: 'Hello, world!',
@@ -69,36 +65,30 @@ export default {
           date: 'todat date',
           cost: 'coooooost',
           id: 2
-        },
-      }, this.result);
-
+        }
+      }, this.result)
     },
-    getItem() {
+    getItem () {
       BX24.callMethod('entity.item.get', {
-        ENTITY: 'payment',
+        ENTITY: 'payment'
 
-      }, this.result);
-
+      }, this.result)
     },
-    getProp() {
+    getProp () {
       BX24.callMethod('entity.item.property.get', {
         ENTITY: 'payment'
       }, this.result)
     }
 
   },
-  get() {
+  get () {
     BX24.callMethod(
-      "entity.get", {},
+      'entity.get', {},
       function (result) {
-        if (result.error())
-          console.error(result.error());
-        else {
-          console.info("Список созданных хранилищ:", result.data());
+        if (result.error()) { console.error(result.error())} else {
+          console.info('Список созданных хранилищ:', result.data())
         }
       }
     )
   }
-
-
-};
+}
