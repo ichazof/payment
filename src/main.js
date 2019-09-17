@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-require('bootstrap/dist/css/bootstrap.min.css');
+import 'ant-design-vue/lib/date-picker/style/css'
+require('bootstrap/dist/css/bootstrap.min.css')
 
 new Vue({
   el: '#app',
