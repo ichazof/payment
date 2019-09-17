@@ -14,6 +14,7 @@ div.app(data-app="true")
   //- button( type="button" class="btn btn-primary" @click="getProp") getProp
   datepicker(value="2018-9-5" format="YYYY-M-D" name="date2")
   DatePicker
+  Calendar
 
   form
     div.form-group

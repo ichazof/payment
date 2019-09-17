@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import datepicker from 'vue-date-picker'
-import { DatePicker } from 'ant-design-vue'
+import { DatePicker, Calendar } from 'ant-design-vue'
 
 export default {
   name: 'app',
@@ -11,7 +11,8 @@ export default {
   },
   components: {
     datepicker,
-    DatePicker
+    DatePicker,
+    Calendar
   },
   methods: {
     show () {
