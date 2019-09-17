@@ -1,10 +1,15 @@
 /* eslint-disable no-undef */
+import datepicker from 'vue-date-picker'
+
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    datepicker
   },
   methods: {
     show () {

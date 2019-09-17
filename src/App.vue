@@ -12,6 +12,8 @@ div.app(data-app="true")
   //- button( type="button" class="btn btn-primary" @click="get") Get Entity
   button( type="button" class="btn btn-primary" @click="getItem") getItem
   //- button( type="button" class="btn btn-primary" @click="getProp") getProp
+  datepicker(value="2018-9-5" format="YYYY-M-D" name="date2")
+
   form
     div.form-group
       <label for="exampleInputEmail1">Email address</label>
