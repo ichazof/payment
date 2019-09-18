@@ -1,18 +1,19 @@
 <template lang="pug">
 div.app(data-app="true")
-  <img src="./assets/logo.png" />
-  Input(v-model="name")
-  Input(v-model="age")
-  Input(v-model="address")
+  Input(v-model="number")
+  Input(v-model="cost")
+  Input(v-model="operator")
   DatePicker(
           :allowClear="false"
           format="YYYY-MM-DD"
           @change="(q, e) => date = e"
   )
 
-  Button( type="primary" @click="add") dd
+  Button( type="primary" @click="add") Добавить
+  Button( type="primary" @click="update") Обновить
+  Button( type="primary" @click="addNewProperty") cdjqcndf
   Table(:dataSource="data" :columns="columns"  bordered)
-    template(v-for="col in ['name', 'age', 'address', 'date']" :slot="col" slot-scope="text, record, index")
+    template(v-for="col in ['number', 'cost', 'operator', 'date']" :slot="col" slot-scope="text, record, index")
       div(:key="col")
         DatePicker(
           v-if="col === 'date' && record.editable" 
@@ -37,52 +38,6 @@ div.app(data-app="true")
         span(v-else)
           a(@click="() => edit(record.key)") Edit
 
-  // <h1>{{ msg }}</h1>
-  // <h2>Essential Links</h2>
-  // div(class="alert alert-primary" role="alert")
-  //   |This is a primary alert—check it out!
-  // button( type="button" class="btn btn-primary" @click="show") Test
-  // button( type="button" class="btn btn-primary" @click="createNewEntity") Create Entity
-  // button( type="button" class="btn btn-primary" @click="addNewProperty") addNewProperty
-  // button( type="button" class="btn btn-primary" @click="addNewItem") addNewItem
-  // //- button( type="button" class="btn btn-primary" @click="get") Get Entity
-  // button( type="button" class="btn btn-primary" @click="getItem") getItem
-  //- button( type="button" class="btn btn-primary" @click="getProp") getProp
-  // datepicker(value="2018-9-5" format="YYYY-M-D" name="date2")
-  // DatePicker
-  // Calendar
-
-  // form
-  //   div.form-group
-  //     <label for="exampleInputEmail1">Email address</label>
-  //     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-  //     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  //   div.form-group
-  //     label(for="exampleInputPassword1") Password
-  //     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    
-  //   button( type="button" class="btn btn-primary" @click="addNewItem") submit
-  // table(class="table table-hover")
-  //   thead
-  //     tr
-  //       th(scope="col") 
-  //         | id
-  //       th(scope="col") 
-  //         | Оператор
-  //       th(scope="col") Номер заявки
-  //       th(scope="col") Оплата
-  //       th(scope="col") Дата оплаты
-  //       th(scope="col") Сотрудник
-  //   tbody
-  //     tr
-  //       th(scope="row") 22
-  //       td  вввввв  
-  //       td  вввввв  
-  //       td  вввввв
-  //       td  вввввв
-  //       td  вввввв
-
-    
 </template>
 
 <script lang="js" src="./script.js"></script>
