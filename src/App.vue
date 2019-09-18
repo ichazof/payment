@@ -1,6 +1,16 @@
 <template lang="pug">
 div.app(data-app="true")
   <img src="./assets/logo.png" />
+  Input(v-model="name")
+  Input(v-model="age")
+  Input(v-model="address")
+  DatePicker(
+          :allowClear="false"
+          format="YYYY-MM-DD"
+          @change="(q, e) => date = e"
+  )
+
+  Button( type="primary" @click="add") dd
   Table(:dataSource="data" :columns="columns"  bordered)
     template(v-for="col in ['name', 'age', 'address', 'date']" :slot="col" slot-scope="text, record, index")
       div(:key="col")

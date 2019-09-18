@@ -4,8 +4,10 @@ import 'ant-design-vue/lib/date-picker/style/css'
 import 'ant-design-vue/lib/calendar/style/css'
 import 'ant-design-vue/lib/table/style/css'
 import 'ant-design-vue/lib/popconfirm/style/css'
-require('bootstrap/dist/css/bootstrap.min.css')
-
+import 'ant-design-vue/lib/form/style/css'
+import 'ant-design-vue/lib/input/style/css'
+import 'ant-design-vue/lib/button/style/css'
+// require('bootstrap/dist/css/bootstrap.min.css')
 
 Date.prototype.format = function (format) {
   const shortDay = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']

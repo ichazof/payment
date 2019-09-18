@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import datepicker from 'vue-date-picker'
-import { DatePicker, Calendar, Table, Popconfirm } from 'ant-design-vue'
+import { DatePicker, Calendar, Table, Popconfirm, Form, Input, Button } from 'ant-design-vue'
 import moment from 'moment'
 
 const data = []
@@ -18,7 +18,10 @@ export default {
   data () {
     this.cacheData = data.map(item => ({ ...item }))
     return {
-      msg: 'Welcome to Your Vue.js App',
+      name: '',
+      age: '',
+      date: '',
+      address: '',
       filteredInfo: null,
       sortedInfo: null,
       data: [],
@@ -54,11 +57,14 @@ export default {
     DatePicker,
     Calendar,
     Table,
-    Popconfirm
+    Popconfirm,
+    Form,
+    Input,
+    Button
   },
   beforeMount () {
     const data = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 5; i++) {
       data.push({
         key: i.toString(),
         name: `Edrward ${i}`,
@@ -74,9 +80,19 @@ export default {
   },
   methods: {
     moment,
+    add () {
+      this.data.push({
+        key: 200,
+        name: this.name,
+        age: this.age,
+        address: this.address,
+        date: this.date
+      })
+      console.log(this.name, this.age, this.address, this.date)
+    },
     onChange (value, dateString) {
-      console.log('Selected Time: ', value);
-      console.log('Formatted Selected Time: ', dateString);
+      console.log('Selected Time: ', value)
+      console.log('Formatted Selected Time: ', dateString)
     },
     handleChange (value, key, column) {
       console.log(value, key, column)
