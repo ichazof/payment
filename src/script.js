@@ -1,33 +1,146 @@
 /* eslint-disable no-undef */
 import datepicker from 'vue-date-picker'
-import { DatePicker, Calendar } from 'ant-design-vue'
+import { DatePicker, Calendar, Table, Popconfirm } from 'ant-design-vue'
+import moment from 'moment'
+
+const data = []
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i.toString(),
+    name: `Edrward ${i}`,
+    age: 32,
+    address: `London Park no. ${i}`
+  })
+}
 
 export default {
   name: 'app',
   data () {
+    this.cacheData = data.map(item => ({ ...item }))
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      filteredInfo: null,
+      sortedInfo: null,
+      data: [],
+      columns: [{
+        title: 'name',
+        dataIndex: 'name',
+        width: '25%',
+        scopedSlots: { customRender: 'name' }
+      }, {
+        title: 'age',
+        dataIndex: 'age',
+        width: '15%',
+        scopedSlots: { customRender: 'age' }
+      }, {
+        title: 'address',
+        dataIndex: 'address',
+        width: '20%',
+        scopedSlots: { customRender: 'address' }
+      }, {
+        title: 'Дата',
+        dataIndex: 'date',
+        width: '20%',
+        scopedSlots: { customRender: 'date' }
+      }, {
+        title: 'operation',
+        dataIndex: 'operation',
+        scopedSlots: { customRender: 'operation' }
+      }]
     }
   },
   components: {
     datepicker,
     DatePicker,
-    Calendar
+    Calendar,
+    Table,
+    Popconfirm
+  },
+  beforeMount () {
+    const data = []
+    for (let i = 0; i < 100; i++) {
+      data.push({
+        key: i.toString(),
+        name: `Edrward ${i}`,
+        age: 32,
+        date: new Date((1 + Math.random() * 1000) * 1000000000).format('Y-m-d'),
+        address: `London Park no. ${i}`
+      })
+    }
+    this.data = data
+  },
+  computed: {
+
   },
   methods: {
+    moment,
+    onChange (value, dateString) {
+      console.log('Selected Time: ', value);
+      console.log('Formatted Selected Time: ', dateString);
+    },
+    handleChange (value, key, column) {
+      console.log(value, key, column)
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
+      if (target) {
+        target[column] = value
+        this.data = newData
+      }
+    },
+    edit (key) {
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
+      if (target) {
+        target.editable = true
+        this.data = newData
+      }
+    },
+    save (key) {
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
+      console.log(target)
+      if (target) {
+        delete target.editable
+        this.data = newData
+        this.cacheData = newData.map(item => ({ ...item }))
+      }
+    },
+    cancel (key) {
+      const newData = [...this.data]
+      const target = newData.filter(item => key === item.key)[0]
+      if (target) {
+        Object.assign(target, this.cacheData.filter(item => key === item.key)[0])
+        delete target.editable
+        this.data = newData
+      }
+    },
+    clearFilters () {
+      this.filteredInfo = null
+    },
+    clearAll () {
+      this.filteredInfo = null
+      this.sortedInfo = null
+    },
+    setAgeSort () {
+      this.sortedInfo = {
+        order: 'descend',
+        columnKey: 'age'
+      }
+    },
+
     show () {
       BX24.callMethod('user.get', {
         ID: 1
       }, function (res) {
         if (res.data()) {
           var user = res.data()[0]
-          if (user) { alert('Пользователя №' + user.ID + ' зовут ' + user.NAME)}
+          if (user) { alert('Пользователя №' + user.ID + ' зовут ' + user.NAME) }
         }
       })
     },
 
     result (result) {
-      if (result.error()) { console.error(result.error())} else {
+      if (result.error()) { console.error(result.error()) } else {
         console.log(result.data())
       }
     },
@@ -93,7 +206,7 @@ export default {
     BX24.callMethod(
       'entity.get', {},
       function (result) {
-        if (result.error()) { console.error(result.error())} else {
+        if (result.error()) { console.error(result.error()) } else {
           console.info('Список созданных хранилищ:', result.data())
         }
       }

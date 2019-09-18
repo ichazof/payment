@@ -1,50 +1,76 @@
 <template lang="pug">
 div.app(data-app="true")
   <img src="./assets/logo.png" />
-  <h1>{{ msg }}</h1>
-  <h2>Essential Links</h2>
-  div(class="alert alert-primary" role="alert")
-    |This is a primary alert—check it out!
-  button( type="button" class="btn btn-primary" @click="show") Test
-  button( type="button" class="btn btn-primary" @click="createNewEntity") Create Entity
-  button( type="button" class="btn btn-primary" @click="addNewProperty") addNewProperty
-  button( type="button" class="btn btn-primary" @click="addNewItem") addNewItem
-  //- button( type="button" class="btn btn-primary" @click="get") Get Entity
-  button( type="button" class="btn btn-primary" @click="getItem") getItem
-  //- button( type="button" class="btn btn-primary" @click="getProp") getProp
-  datepicker(value="2018-9-5" format="YYYY-M-D" name="date2")
-  DatePicker
-  Calendar
+  Table(:dataSource="data" :columns="columns"  bordered)
+    template(v-for="col in ['name', 'age', 'address', 'date']" :slot="col" slot-scope="text, record, index")
+      div(:key="col")
+        DatePicker(
+          v-if="col === 'date' && record.editable" 
+          :defaultValue="moment(text, 'YYYY-MM-DD')" 
+          :allowClear="false"
+          format="YYYY-MM-DD"
+          @change="(q, e) => handleChange(e, record.key, col)"
+          )
+        Input(
+          v-else-if="record.editable"
+          style="margin: -5px 0"
+          :value="text"
+          @change="e => handleChange(e.target.value, record.key, col)"
+        )
+        template(v-else) {{text}}
+    template(slot="operation" slot-scope="text, record, index")
+      div(class='editable-row-operations')
+        span(v-if="record.editable")
+          a(@click="() => save(record.key)") Save
+          popconfirm(title='Sure to cancel?' @confirm="() => cancel(record.key)")
+            a Cancel
+        span(v-else)
+          a(@click="() => edit(record.key)") Edit
 
-  form
-    div.form-group
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    div.form-group
-      label(for="exampleInputPassword1") Password
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  // <h1>{{ msg }}</h1>
+  // <h2>Essential Links</h2>
+  // div(class="alert alert-primary" role="alert")
+  //   |This is a primary alert—check it out!
+  // button( type="button" class="btn btn-primary" @click="show") Test
+  // button( type="button" class="btn btn-primary" @click="createNewEntity") Create Entity
+  // button( type="button" class="btn btn-primary" @click="addNewProperty") addNewProperty
+  // button( type="button" class="btn btn-primary" @click="addNewItem") addNewItem
+  // //- button( type="button" class="btn btn-primary" @click="get") Get Entity
+  // button( type="button" class="btn btn-primary" @click="getItem") getItem
+  //- button( type="button" class="btn btn-primary" @click="getProp") getProp
+  // datepicker(value="2018-9-5" format="YYYY-M-D" name="date2")
+  // DatePicker
+  // Calendar
+
+  // form
+  //   div.form-group
+  //     <label for="exampleInputEmail1">Email address</label>
+  //     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+  //     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  //   div.form-group
+  //     label(for="exampleInputPassword1") Password
+  //     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     
-    button( type="button" class="btn btn-primary" @click="addNewItem") submit
-  table(class="table table-hover")
-    thead
-      tr
-        th(scope="col") 
-          | id
-        th(scope="col") 
-          | Оператор
-        th(scope="col") Номер заявки
-        th(scope="col") Оплата
-        th(scope="col") Дата оплаты
-        th(scope="col") Сотрудник
-    tbody
-      tr
-        th(scope="row") 22
-        td  вввввв  
-        td  вввввв  
-        td  вввввв
-        td  вввввв
-        td  вввввв
+  //   button( type="button" class="btn btn-primary" @click="addNewItem") submit
+  // table(class="table table-hover")
+  //   thead
+  //     tr
+  //       th(scope="col") 
+  //         | id
+  //       th(scope="col") 
+  //         | Оператор
+  //       th(scope="col") Номер заявки
+  //       th(scope="col") Оплата
+  //       th(scope="col") Дата оплаты
+  //       th(scope="col") Сотрудник
+  //   tbody
+  //     tr
+  //       th(scope="row") 22
+  //       td  вввввв  
+  //       td  вввввв  
+  //       td  вввввв
+  //       td  вввввв
+  //       td  вввввв
 
     
 </template>
@@ -61,7 +87,9 @@ div.app(data-app="true")
   color: #2c3e50;
   margin-top: 60px;
 }
-
+.editable-row-operations a {
+  margin-right: 8px;
+}
 h1,
 h2 {
   font-weight: normal;
