@@ -89,9 +89,10 @@ export default {
   //     data.push({
   //       key: i.toString(),
   //       name: `Edrward ${i}`,
-  //       age: 32,
+  //       cost: 32,
+  //       number: 222,
   //       date: new Date((1 + Math.random() * 1000) * 1000000000).format('Y-m-d'),
-  //       address: `London Park no. ${i}`
+  //       operator: `London Park no. ${i}`
   //     })
   //   }
   //   this.data = data
@@ -100,13 +101,14 @@ export default {
     dataBig () {
       this.data = this.dataBig.map(e => {
         const container = {}
-        container.key = e.id
+        container.key = +e.ID
         container.cost = e.PROPERTY_VALUES.cost
         container.number = e.PROPERTY_VALUES.number
         container.date = e.PROPERTY_VALUES.date
         container.operator = e.PROPERTY_VALUES.operator
         return container
       })
+      console.log(this.data)
     }
   },
   methods: {
