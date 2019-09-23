@@ -141,6 +141,15 @@ export default {
         this.data = newData
       }
     },
+    remove (key) {
+      BX24.callMethod('entity.item.delete', {
+        ENTITY: 'payment',
+        ID: key
+      },
+      this.result)
+      const newData = [...this.data]
+      this.data = newData.filter(item => key !== item.key)
+    },
     save (key) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]

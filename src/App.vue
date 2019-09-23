@@ -37,6 +37,7 @@ div.app(data-app="true")
             a Cancel
         span(v-else)
           a(@click="() => edit(record.key)") Edit
+          a(@click="() => remove(record.key)") Edit
 
 </template>
 
